@@ -34,7 +34,8 @@
           this.$router.push({
             name:'details',
             params:{
-              detailData:item
+              detailData:item,
+              collectionType:'recommend'
             }
           })
       },

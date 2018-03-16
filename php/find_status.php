@@ -2,7 +2,6 @@
     header('Access-Control-Allow-Origin: *');
     header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
     header('Access-Control-Allow-Methods: GET, POST, PUT,DELETE');
-
     // 连接数据库名称
     $mysql_conf = array(
         'host'    => '127.0.0.1', 
@@ -23,25 +22,28 @@
     }
     // 返回给前端数据
     function result($result){
-      $arr = array();
-      if ($result->num_rows > 0) {
-          // 输出每行数据
-          while($row = $result->fetch_assoc()) {
-              $arr[] = $row;
-          }
-      } else {
-          echo "0 个结果";
-      }
-      return $arr;
+        $arr = array();
+        if ($result->num_rows > 0) {
+            // 输出每行数据
+            while($row = $result->fetch_assoc()) {
+                $arr[] = $row;
+            }
+        } else {
+            $arr = array('status' => 0, 'msg' => '无数据');
+        }
+        return $arr;
     }
     function row($result){
-      $row = $result->fetch_array();
-      return $row;
+        $row = $result->fetch_array();
+        return $row;
     }
-    $sql = "SELECT * FROM t_fire,t_type WHERE t_fire.type = t_type.id";
-    $res = $mysqli->query($sql);
-    $rs = result($res);
+    $user_id = $_POST['user_id'];
+    $find_id = $_POST['find_id'];
+    $sql = "select * from t_collection where user_id='$user_id' and find_id=$find_id";
+    $result = $mysqli->query($sql);
+    $rs = result($result);
     echo json_encode($rs);
+    // 判断是否收藏调用
 ?>
 
 

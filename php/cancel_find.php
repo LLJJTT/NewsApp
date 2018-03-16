@@ -2,7 +2,6 @@
     header('Access-Control-Allow-Origin: *');
     header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
     header('Access-Control-Allow-Methods: GET, POST, PUT,DELETE');
-
     // 连接数据库名称
     $mysql_conf = array(
         'host'    => '127.0.0.1', 
@@ -21,27 +20,19 @@
     if (!$select_db) {
         die("could not connect to the db:\n" .  $mysqli->error);
     }
-    // 返回给前端数据
-    function result($result){
-        $arr = array();
-        if ($result->num_rows > 0) {
-            // 输出每行数据
-            while($row = $result->fetch_assoc()) {
-                $arr[] = $row;
-            }
-        } else {
-            echo "0 个结果";
-        }
-        return $arr;
+    $user_id = $_POST['user_id'];
+    $find_id = $_POST['find_id'];
+    $sql = "delete from t_collection where user_id=$user_id and find_id=$find_id";
+    $result = $mysqli->query($sql);
+    if ($result === TRUE){
+      $arr = array('status' => 1, 'msg' => '取消成功');
+      echo json_encode($arr);
+    } 
+    else {
+      $arr = array('status' => 0, 'msg' => '取消失败');
+      echo json_encode($arr);
     }
-    function row($result){
-        $row = $result->fetch_array();
-        return $row;
-    }
-    $sql = "SELECT * FROM t_news_list,t_type WHERE t_news_list.type = t_type.id";
-    $res = $mysqli->query($sql);
-    $rs = result($res);
-    echo json_encode($rs);
+    // 取消收藏调用
 ?>
 
 

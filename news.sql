@@ -11,24 +11,42 @@
  Target Server Version : 100110
  File Encoding         : utf-8
 
- Date: 03/16/2018 18:52:02 PM
+ Date: 03/17/2018 00:49:11 AM
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+--  Table structure for `t_collection`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_collection`;
+CREATE TABLE `t_collection` (
+  `collection_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `find_id` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`collection_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+--  Records of `t_collection`
+-- ----------------------------
+BEGIN;
+INSERT INTO `t_collection` VALUES ('116', '1', '7');
+COMMIT;
+
+-- ----------------------------
 --  Table structure for `t_fire`
 -- ----------------------------
 DROP TABLE IF EXISTS `t_fire`;
 CREATE TABLE `t_fire` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fire_id` int(11) NOT NULL AUTO_INCREMENT,
   `newstitle` varchar(255) DEFAULT NULL,
   `img_src` varchar(255) DEFAULT NULL,
   `content` text,
   `newstime` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`fire_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -43,14 +61,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_news_list`;
 CREATE TABLE `t_news_list` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `newslist_id` int(11) NOT NULL AUTO_INCREMENT,
   `newstitle` varchar(255) DEFAULT NULL,
   `newstime` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
   `img_src` varchar(255) DEFAULT NULL,
   `comment_number` int(11) DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`newslist_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -65,14 +83,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_recommend`;
 CREATE TABLE `t_recommend` (
-  `id` int(11) NOT NULL,
+  `recommend_id` int(11) NOT NULL,
   `newstitle` varchar(255) DEFAULT NULL,
   `content` varchar(255) DEFAULT NULL,
   `img_src` varchar(255) DEFAULT NULL,
   `newstime` varchar(255) DEFAULT NULL,
   `comment` varchar(255) DEFAULT NULL,
   `type` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`recommend_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -104,10 +122,10 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------

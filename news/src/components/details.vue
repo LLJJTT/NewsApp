@@ -38,14 +38,23 @@
       return{
         detailData:[],
         off:'el-icon-star-off',
+        collectionType:'',
+        findUrl:'http://112.74.63.14/NewsApp/php/collection_find.php',
+        cancelFindUrl:'http://112.74.63.14/NewsApp/php/cancel_find.php',
+        ifFindUrl:'http://112.74.63.14/NewsApp/php/find_status.php',
+        collectionStatus:0,
       }
     },
     methods:{
+      // 返回
       prev:function(){
         history.back()
       },
+      // 点击收藏
       goCollection(){
         const username = sessionStorage.getItem('username')
+        const user_id = JSON.parse(sessionStorage.loginUser).data.user_id
+        // 判断是否登录
         if (username==''||username==null||username==undefined) {
           Toast({
             message: '请先登录',
@@ -54,18 +63,140 @@
           });
         }
         else{
-          this.off = 'el-icon-star-on'
-          Toast({
-            message: '收藏成功',
-            position: 'middle',
-            duration:2000
-          });
+          // 判断是否收藏
+          if (this.collectionStatus==0) {
+            // 判断收藏的类别-三种类别，find,fire,recommend
+            if (this.collectionType=='fire') {
+              Toast({
+                message: '不可收藏',
+                position: 'middle',
+                duration:1000
+              });
+            }
+            else if (this.collectionType=='recommend') {
+              Toast({
+                message: '不可收藏',
+                position: 'middle',
+                duration:1000
+              });
+            }
+            else if (this.collectionType=='find') {
+              var formdata = new FormData()
+              formdata.append('user_id',user_id)
+              formdata.append('find_id',this.detailData.newslist_id)
+              axios({
+                method:'POST',
+                url:this.findUrl,
+                data:formdata,
+                config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
+              })
+              .then((res) =>{
+                if (res.data.status==1) {
+                  this.off = 'el-icon-star-on'
+                  Toast({
+                    message: '收藏成功',
+                    position: 'middle',
+                    duration:1000
+                  });
+                  this.collectionStatus=1
+                }
+                else if(res.data.status==0) {
+                  Toast({
+                    message: '收藏失败',
+                    position: 'middle',
+                    duration:1000
+                  });
+                }
+              })
+              .catch((res) =>{
+                Toast({
+                  message: '收藏失败',
+                  position: 'middle',
+                  duration:1000
+                });
+              })
+            }
+          }
+          else{
+            if (this.collectionType=='find') {
+              var formdata = new FormData()
+              formdata.append('user_id',user_id)
+              formdata.append('find_id',this.detailData.newslist_id)
+              axios({
+                method:'POST',
+                url:this.cancelFindUrl,
+                data:formdata,
+                config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
+              })
+              .then((res) =>{
+                if (res.data.status==1) {
+                  this.off = 'el-icon-star-off'
+                  Toast({
+                    message: '已取消收藏',
+                    position: 'middle',
+                    duration:1000
+                  });
+                  this.collectionStatus=0
+                }
+                else if(res.data.status==0) {
+                  Toast({
+                    message: '取消失败',
+                    position: 'middle',
+                    duration:1000
+                  });
+                }
+              })
+              .catch((res) =>{
+                Toast({
+                  message: '取消失败',
+                  position: 'middle',
+                  duration:1000
+                });
+              })
+            }
+
+          }
+        }
+      },
+      // 加载时候判断是否收藏过，yes = 实心收藏标志
+      collectionStatusIf(){
+        const username = sessionStorage.getItem('username')
+        const user_id = JSON.parse(sessionStorage.loginUser).data.user_id
+        if (this.collectionType=='find') {
+          var formdata = new FormData()
+          formdata.append('user_id',user_id)
+          formdata.append('find_id',this.detailData.newslist_id)
+          axios({
+            method:'POST',
+            url:this.ifFindUrl,
+            data:formdata,
+            config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
+          })
+          .then((res) =>{
+            // console.log(res)
+            if (res.data.length==1) {
+              this.off='el-icon-star-on'
+              this.collectionStatus = 1
+            }
+            else if (res.data.status==0){
+              this.off='el-icon-star-off'
+              this.collectionStatus = 0
+            }          
+          })
+          .catch((res) =>{
+            Toast({
+              message: '未知错误',
+              position: 'middle',
+              duration:1000
+            });
+          })
         }
       }
     },
     created:function(){
       this.detailData = this.$route.params.detailData
-      // console.log(this.detailData)
+      this.collectionType = this.$route.params.collectionType
+      this.collectionStatusIf()
     },
   }
 </script>

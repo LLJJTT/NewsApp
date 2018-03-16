@@ -88,12 +88,14 @@
     },
     methods:{
       goDetails(item){
-          this.$router.push({
-            name:'details',
-            params:{
-              detailData:item
-            }
-          })
+        // console.log(item.newslist_id)
+        this.$router.push({
+          name:'details',
+          params:{
+            detailData:item,
+            collectionType:'find'
+          }
+        })
       },
       // 获取数据并且进行分类
       getFireData:function(){
