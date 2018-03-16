@@ -53,7 +53,6 @@
       // 点击收藏
       goCollection(){
         const username = sessionStorage.getItem('username')
-        const user_id = JSON.parse(sessionStorage.loginUser).data.user_id
         // 判断是否登录
         if (username==''||username==null||username==undefined) {
           Toast({
@@ -64,6 +63,7 @@
         }
         else{
           // 判断是否收藏
+          const user_id = JSON.parse(sessionStorage.loginUser).data.user_id
           if (this.collectionStatus==0) {
             // 判断收藏的类别-三种类别，find,fire,recommend
             if (this.collectionType=='fire') {
@@ -196,7 +196,14 @@
     created:function(){
       this.detailData = this.$route.params.detailData
       this.collectionType = this.$route.params.collectionType
-      this.collectionStatusIf()
+      const username = sessionStorage.getItem('username')
+      console.log(username)
+      if (username==''||username==null||username==undefined) {
+
+      }
+      else{
+        this.collectionStatusIf()
+      }
     },
   }
 </script>
