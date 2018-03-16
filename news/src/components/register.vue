@@ -41,7 +41,7 @@ export default {
     	phonenumber:'',
     	pwd1:'',
     	pwd2:'',
-    	url:'http://localhost/NewsApp/php/register.php'
+    	url:'http://112.74.63.14/NewsApp/php/register.php'
     }
   },
   methods:{

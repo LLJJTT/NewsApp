@@ -24,7 +24,7 @@
   export default{
     data(){
       return{
-        url:'http://localhost/NewsApp/php/recommend.php',
+        url:'http://112.74.63.14/NewsApp/php/recommend.php',
         recommendData:[]
       }
     },
@@ -37,7 +37,7 @@
         })
         .then((res) =>{
           this.recommendData = res.data
-          console.log(res.data)
+          // console.log(res.data)
         })
 
       }

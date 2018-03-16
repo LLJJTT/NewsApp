@@ -40,7 +40,7 @@ export default {
     return {
     	username:'',
     	pwd:'',
-		  url:'http://localhost/NewsApp/php/login.php'
+		  url:'http://112.74.63.14/NewsApp/php/login.php'
     }
   },
   methods:{

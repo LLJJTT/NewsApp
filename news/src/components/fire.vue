@@ -25,7 +25,7 @@
     <div class="newslist">
       <ul v-for="item in newslist">
         <li class="newstitle">{{item.newstitle}}</li>
-        <li><img class="newsimg" :src="item.src"><div style="clear:both"></div></li>
+        <li><img class="newsimg" :src="item.img_src"><div style="clear:both"></div></li>
         <li><span class="newstime">{{item.newstime}}</span><span class="newstype">{{item.type_name}}</span><div style="clear:both"></div></li>
       </ul>
     </div>
@@ -37,7 +37,7 @@
   export default{
     data(){
       return{
-        url:'http://localhost/NewsApp/php/fire.php',
+        url:'http://112.74.63.14/NewsApp/php/fire.php',
         searchVal:'',
         swiper:[{
           src:'static/img/news1.jpg'
@@ -60,7 +60,7 @@
         })
         .then((res) =>{
           this.newslist = res.data
-          console.log(res.data)
+          // console.log(res.data)
         })
       }
     },
