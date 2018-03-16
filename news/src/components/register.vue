@@ -125,7 +125,7 @@ export default {
 						});
 						// 跳转主页
 						that.$router.push({
-							path:'/index/recommend'
+							path:'/index/fire'
 						})
 					}
 					else{

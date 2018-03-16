@@ -29,7 +29,7 @@ export default new Router({
       component:Index,
       children:[{
           path:'/',
-          redirect: '/index/recommend'
+          redirect: '/index/fire'
         },{
         	path:'recommend',
         	name:'recommend',

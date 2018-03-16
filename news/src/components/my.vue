@@ -18,7 +18,7 @@
         </li>
         
         <li @click="aboutLevel">
-          <img src="../../static/img/level.png" alt="">&nbsp;&nbsp;<span>版本信息</span>
+          <img src="../../static/img/level.png" alt="">&nbsp;&nbsp;<span>新闻介绍</span>
         </li>
       </ul>
     </div>
