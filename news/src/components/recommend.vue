@@ -30,7 +30,7 @@
     },
     methods:{
       goDetails(item){
-        console.log(item)
+        // console.log(item)
           this.$router.push({
             name:'details',
             params:{

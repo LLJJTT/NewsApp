@@ -65,7 +65,7 @@
     },
     created:function(){
       this.detailData = this.$route.params.detailData
-      console.log(this.detailData)
+      // console.log(this.detailData)
     },
   }
 </script>

@@ -106,25 +106,25 @@
           this.newslist = res.data
           var that = this
           this.newslist.map(function(val,index,array){
-            if (val.newstype==1) {
+            if (val.type==1) {
               that.shenghuo.push(val)
             }
-            else if (val.newstype==2) {
+            else if (val.type==2) {
               that.zhengzhi.push(val)
             }
-            else if (val.newstype==3) {
+            else if (val.type==3) {
               that.junshi.push(val)
             }
-            else if (val.newstype==4) {
+            else if (val.type==4) {
               that.keji.push(val)
             }
-            else if (val.newstype==5) {
+            else if (val.type==5) {
               that.guoji.push(val)
             }
-            else if (val.newstype==6) {
+            else if (val.type==6) {
               that.yule.push(val)
             }
-            else if (val.newstype==7) {
+            else if (val.type==7) {
               that.tiyu.push(val)
             }
           })

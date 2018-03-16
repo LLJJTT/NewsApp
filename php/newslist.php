@@ -38,7 +38,7 @@
         $row = $result->fetch_array();
         return $row;
     }
-    $sql = "SELECT * FROM t_news_list,t_type WHERE t_news_list.newstype = t_type.id ";
+    $sql = "SELECT * FROM t_news_list,t_type WHERE t_news_list.type = t_type.id ";
     $res = $mysqli->query($sql);
     $rs = result($res);
     echo json_encode($rs);
