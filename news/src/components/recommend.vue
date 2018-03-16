@@ -5,7 +5,7 @@
       <span class="name">推荐</span>
     </div>
     <!-- 推荐list -->
-    <div class="wrapper" v-for="item in recommendData">
+    <div @click="goDetails(item)" class="wrapper" v-for="item in recommendData">
       <div class="left">
         <img class="newsimg" :src="item.img_src" alt="">
       </div>
@@ -29,6 +29,15 @@
       }
     },
     methods:{
+      goDetails(item){
+          this.$router.push({
+            name:'details',
+            params:{
+              detailData:item
+            }
+          })
+      },
+      // 获取数据
       getRecommendData(){
         axios({
           method:'GET',

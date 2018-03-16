@@ -18,49 +18,49 @@
 <!-- tab-container -->
 <mt-tab-container v-model="selected">
   <mt-tab-container-item class="newslist" id="1">
-    <ul v-for="item in shenghuo">
+    <ul @click="goDetails(item)" v-for="item in shenghuo">
       <li class="newstitle">{{item.newstitle}}</li>
       <li><img class="newsimg" :src="item.img_src"><div style="clear:both"></div></li>
       <li><span class="newstime">{{item.newstime}}</span><span class="newstype">{{item.type_name}}</span><div style="clear:both"></div></li>
     </ul>
   </mt-tab-container-item>
   <mt-tab-container-item class="newslist" id="2">
-    <ul v-for="item in zhengzhi">
+    <ul @click="goDetails(item)" v-for="item in zhengzhi">
       <li class="newstitle">{{item.newstitle}}</li>
       <li><img class="newsimg" :src="item.img_src"><div style="clear:both"></div></li>
       <li><span class="newstime">{{item.newstime}}</span><span class="newstype">{{item.type_name}}</span><div style="clear:both"></div></li>
     </ul>
   </mt-tab-container-item>
   <mt-tab-container-item class="newslist" id="3">
-    <ul v-for="item in junshi">
+    <ul @click="goDetails(item)" v-for="item in junshi">
       <li class="newstitle">{{item.newstitle}}</li>
       <li><img class="newsimg" :src="item.img_src"><div style="clear:both"></div></li>
       <li><span class="newstime">{{item.newstime}}</span><span class="newstype">{{item.type_name}}</span><div style="clear:both"></div></li>
     </ul>
   </mt-tab-container-item>
   <mt-tab-container-item class="newslist" id="4">
-    <ul v-for="item in keji">
+    <ul @click="goDetails(item)" v-for="item in keji">
       <li class="newstitle">{{item.newstitle}}</li>
       <li><img class="newsimg" :src="item.img_src"><div style="clear:both"></div></li>
       <li><span class="newstime">{{item.newstime}}</span><span class="newstype">{{item.type_name}}</span><div style="clear:both"></div></li>
     </ul>
   </mt-tab-container-item>
   <mt-tab-container-item class="newslist" id="5">
-    <ul v-for="item in guoji">
+    <ul @click="goDetails(item)" v-for="item in guoji">
       <li class="newstitle">{{item.newstitle}}</li>
       <li><img class="newsimg" :src="item.img_src"><div style="clear:both"></div></li>
       <li><span class="newstime">{{item.newstime}}</span><span class="newstype">{{item.type_name}}</span><div style="clear:both"></div></li>
     </ul>
   </mt-tab-container-item>
   <mt-tab-container-item class="newslist" id="6">
-    <ul v-for="item in yule">
+    <ul @click="goDetails(item)" v-for="item in yule">
       <li class="newstitle">{{item.newstitle}}</li>
       <li><img class="newsimg" :src="item.img_src"><div style="clear:both"></div></li>
       <li><span class="newstime">{{item.newstime}}</span><span class="newstype">{{item.type_name}}</span><div style="clear:both"></div></li>
     </ul>
   </mt-tab-container-item>
   <mt-tab-container-item class="newslist" id="7">
-    <ul v-for="item in tiyu">
+    <ul @click="goDetails(item)" v-for="item in tiyu">
       <li class="newstitle">{{item.newstitle}}</li>
       <li><img class="newsimg" :src="item.img_src"><div style="clear:both"></div></li>
       <li><span class="newstime">{{item.newstime}}</span><span class="newstype">{{item.type_name}}</span><div style="clear:both"></div></li>
@@ -87,6 +87,15 @@
       }
     },
     methods:{
+      goDetails(item){
+          this.$router.push({
+            name:'details',
+            params:{
+              detailData:item
+            }
+          })
+      },
+      // 获取数据并且进行分类
       getFireData:function(){
         axios({
           method:'GET',

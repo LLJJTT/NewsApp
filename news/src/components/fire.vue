@@ -23,7 +23,7 @@
 
     <!-- 热点新闻list -->
     <div class="newslist">
-      <ul v-for="item in newslist">
+      <ul @click="goDetails(item)" v-for="item in newslist">
         <li class="newstitle">{{item.newstitle}}</li>
         <li><img class="newsimg" :src="item.img_src"><div style="clear:both"></div></li>
         <li><span class="newstime">{{item.newstime}}</span><span class="newstype">{{item.type_name}}</span><div style="clear:both"></div></li>
@@ -52,6 +52,15 @@
       }
     },
     methods:{
+      goDetails(item){
+        this.$router.push({
+          name:'details',
+          params:{
+            detailData:item
+          }
+        })
+      },
+      // 获取数据
       getFireData:function(){
         axios({
           method:'GET',

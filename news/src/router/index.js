@@ -9,7 +9,7 @@ import Find from '@/components/find'
 import My from '@/components/my'
 import Level from '@/components/level'
 import Collection from '@/components/collection'
-
+import Details from '@/components/details'
 Vue.use(Router)
 
 export default new Router({
@@ -54,6 +54,10 @@ export default new Router({
           path:'level',
           name:'level',
           component:Level
+        },{
+          path:'details',
+          name:'details',
+          component:Details
         }]
   }]
 })
