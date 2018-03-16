@@ -38,7 +38,7 @@
         $row = $result->fetch_array();
         return $row;
     }
-    $sql = "SELECT * FROM t_recommend";
+    $sql = "SELECT * FROM t_recommend,t_type WHERE t_recommend.type = t_type.id";
     $res = $mysqli->query($sql);
     $rs = result($res);
     echo json_encode($rs);

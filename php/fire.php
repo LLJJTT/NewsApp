@@ -23,20 +23,20 @@
     }
     // 返回给前端数据
     function result($result){
-        $arr = array();
-        if ($result->num_rows > 0) {
-            // 输出每行数据
-            while($row = $result->fetch_assoc()) {
-                $arr[] = $row;
-            }
-        } else {
-            echo "0 个结果";
-        }
-        return $arr;
+      $arr = array();
+      if ($result->num_rows > 0) {
+          // 输出每行数据
+          while($row = $result->fetch_assoc()) {
+              $arr[] = $row;
+          }
+      } else {
+          echo "0 个结果";
+      }
+      return $arr;
     }
     function row($result){
-        $row = $result->fetch_array();
-        return $row;
+      $row = $result->fetch_array();
+      return $row;
     }
     $sql = "SELECT * FROM t_fire,t_type WHERE t_fire.type = t_type.id";
     $res = $mysqli->query($sql);
