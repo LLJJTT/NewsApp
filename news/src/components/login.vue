@@ -96,7 +96,7 @@ export default {
 			    data:formdata,
       		config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
 				})
-				.then((res) =>{
+				.then((res) =>{ 
 					var that =this
 					if (res.data.status==2) {//密码错误
 						Toast({
@@ -120,7 +120,7 @@ export default {
 							path:'/index/fire'
 						})
 					}
-					else{//用户还没注册
+					else if (res.data.status==0){//用户还没注册
 						Toast({
 						  message: '用户还没注册',
 						  position: 'middle',

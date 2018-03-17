@@ -33,7 +33,7 @@
         echo json_encode($arr);
       }
       else {
-        $arr = array('status' => 1, 'msg' => '登录成功','user_id' =>$rs->id);
+        $arr = array('status' => 1, 'msg' => '登录成功','user_id' =>$rs->user_id);
         echo json_encode($arr);
       }
     }

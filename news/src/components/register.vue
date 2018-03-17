@@ -123,7 +123,7 @@ export default {
 						  position: 'middle',
 						  duration:2000,
 						});
-						// 跳转主页
+						// 跳转主页 
 						that.$router.push({
 							path:'/index/fire'
 						})
