@@ -11,7 +11,7 @@
  Target Server Version : 100110
  File Encoding         : utf-8
 
- Date: 03/17/2018 00:49:11 AM
+ Date: 03/19/2018 15:26:34 PM
 */
 
 SET NAMES utf8mb4;
@@ -34,6 +34,18 @@ CREATE TABLE `t_collection` (
 BEGIN;
 INSERT INTO `t_collection` VALUES ('116', '1', '7');
 COMMIT;
+
+-- ----------------------------
+--  Table structure for `t_comment`
+-- ----------------------------
+DROP TABLE IF EXISTS `t_comment`;
+CREATE TABLE `t_comment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `newslist_id` varchar(255) DEFAULT NULL,
+  `content` text,
+  `user_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 --  Table structure for `t_fire`

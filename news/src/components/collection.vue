@@ -5,7 +5,7 @@
       <i @click="prev" class="el-icon-back prev"></i>
       <span class="name">收藏</span>
     </div>
-    <div>
+    <div class="wrapper">
       <li @click="goDetail(item)" v-for="item in infoData" :style="s1" class="newslist">{{item.newstitle}}</li>
       <li class="s2" :style="s2">你还没有收藏</li>
     </div>
@@ -112,6 +112,10 @@
     margin-top: 6rem;
     font-size: 1.2rem;
     color: blue;
+  }
+  .wrapper{
+    max-height: 34rem;
+    overflow: auto;
   }
 </style>
 

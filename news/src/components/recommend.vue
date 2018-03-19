@@ -61,7 +61,7 @@
 
 <style scoped>
   #recommend{
-    max-height:35rem;
+    max-height:34rem;
     overflow:auto; 
   }
   #head{

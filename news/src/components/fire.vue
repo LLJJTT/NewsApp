@@ -123,7 +123,7 @@
     /*background: #aaa;*/
     margin-top: 12px;
     overflow: auto;
-    height:22rem;
+    max-height:21rem;
   }
   .newslist ul{
     background: #fff;

@@ -191,7 +191,7 @@
   }
   .mint-tab-container{
     overflow: auto;
-    height: 31rem;
+    max-height: 31rem;
   }
 </style>
 

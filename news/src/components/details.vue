@@ -20,12 +20,12 @@
       <img class="newsimg" :src="detailData.img_src" alt="">
       <p class="newscontent">{{detailData.content}}</p>
       <li class="pinglun">
-        <textarea class="say"  cols="40" rows="3" placeholder="输入评论"></textarea>
-        <el-button class="suresay" type="primary">确定</el-button>
+        <textarea v-model="comment" class="say"  cols="40" rows="3" placeholder="输入评论"></textarea>
+        <el-button @click="goComment" class="suresay" type="primary">确定</el-button>
         <div style="clear:both"></div>
       </li>
       <li class="other">
-        <p>其他人的评论，大家都能看见</p>
+        <p v-for="item in commentData">{{item.content}}</p>
       </li>
     </div>
   </div>
@@ -42,7 +42,11 @@
         findUrl:'http://112.74.63.14/NewsApp/php/collection_find.php',
         cancelFindUrl:'http://112.74.63.14/NewsApp/php/cancel_find.php',
         ifFindUrl:'http://112.74.63.14/NewsApp/php/find_status.php',
+        commentURL:'http://112.74.63.14/NewsApp/php/comment.php',
+        getcommentData:'http://112.74.63.14/NewsApp/php/get_comment_data.php',
         collectionStatus:0,
+        comment:'',
+        commentData:[],
       }
     },
     methods:{
@@ -191,18 +195,119 @@
             });
           })
         }
+      },
+      // 评论
+      goComment(){
+        const username = sessionStorage.getItem('username')
+        if (username==''||username==null||username==undefined) {
+          Toast({
+            message: '请先登录',
+            position: 'middle',
+            duration:1000
+          });
+        }
+        else{
+          if (this.collectionType=='fire') {
+            Toast({
+              message: '不可评论',
+              position: 'middle',
+              duration:1000
+            });
+          }
+          else if (this.collectionType=='recommend') {
+            Toast({
+              message: '不可评论',
+              position: 'middle',
+              duration:1000
+            });
+          }
+          else if (this.collectionType=='find') {
+            if (this.comment=='') {
+              Toast({
+                message: '请输入内容',
+                position: 'middle',
+                duration:1000
+              })
+            }
+            else{
+              const  user_id = JSON.parse(sessionStorage.getItem('loginUser')).data.user_id
+              console.log(user_id)
+              var formdata = new FormData()
+              formdata.append('newslist_id',this.detailData.newslist_id)
+              formdata.append('user_id',user_id)
+              formdata.append('comment',this.comment)
+              axios({
+                method:'POST',
+                url:this.commentURL,
+                data:formdata,
+                config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
+              })
+              .then((res) =>{
+                if (res.data.status==1) {
+                  Toast({
+                    message: '评论成功',
+                    position: 'middle',
+                    duration:1000
+                  })
+                }
+                else if(res.data.status==2){
+                  Toast({
+                    message: '评论失败',
+                    position: 'middle',
+                    duration:1000
+                  })
+                }
+                console.log(res.data)
+              })
+              .catch((error) =>{
+                Toast({
+                  message: '服务器错误',
+                  position: 'middle',
+                  duration:1000
+                })
+                console.log(error)
+              })
+            }
+          }
+        }
+        
+      },
+      // 获取评论数据
+      getCommentData(){
+        if (this.collectionType=='find') {
+          var formdata = new FormData()
+          formdata.append('newslist_id',this.detailData.newslist_id)
+          axios({
+            method:'POST',
+            url:this.getcommentData,
+            data:formdata,
+            config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
+          })
+          .then((res) =>{
+            if (res.data.status==0) {
+              console.log('无评论')
+            }
+            else{
+              this.commentData = res.data
+            }
+            console.log(this.commentData)
+          })
+          .catch((error) =>{
+            console.log(error)
+          })
+        }
       }
     },
     created:function(){
       this.detailData = this.$route.params.detailData
       this.collectionType = this.$route.params.collectionType
       const username = sessionStorage.getItem('username')
-      console.log(username)
       if (username==''||username==null||username==undefined) {
 
       }
       else{
         this.collectionStatusIf()
+        this.getCommentData()
       }
     },
   }
@@ -210,7 +315,7 @@
 
 <style scoped>
   #details{
-    height: 35rem;
+    height: 34rem;
     overflow: auto;
   }
   #head{
