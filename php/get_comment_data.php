@@ -22,6 +22,7 @@
         die("could not connect to the db:\n" .  $mysqli->error);
     }
     // 返回给前端数据
+    $newslist_id = $_POST['newslist_id'];
     function result($result){
       $arr = array();
       if ($result->num_rows > 0) {
@@ -30,7 +31,7 @@
               $arr[] = $row;
           }
       } else {
-          $arr = array('status' => 0, 'msg' => '无评论');
+          $arr = array('status' => 0, 'msg' => '无数据');
       }
       return $arr;
     }
@@ -38,12 +39,10 @@
       $row = $result->fetch_array();
       return $row;
     }
-    $newslist_id = $_POST['newslist_id']
-    $sql = "SELECT * FROM t_comment WHERE newslist_id = '$newslist_id'";
+    $sql = "SELECT * FROM t_comment WHERE t_comment.newslist_id = $newslist_id";
     $res = $mysqli->query($sql);
     $rs = result($res);
     echo json_encode($rs);
-    // 拿评论的数据
 ?>
 
 

@@ -275,6 +275,7 @@
       // 获取评论数据
       getCommentData(){
         if (this.collectionType=='find') {
+          console.log(this.detailData.newslist_id)
           var formdata = new FormData()
           formdata.append('newslist_id',this.detailData.newslist_id)
           axios({

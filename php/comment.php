@@ -21,7 +21,7 @@
         die("could not connect to the db:\n" .  $mysqli->error);
     }
     // 前端传过来的用户名、密码
-    $newslist_id = $_POST['newslist_id']
+    $newslist_id = $_POST['newslist_id'];
     $user_id = $_POST['user_id'];
     $comment = $_POST['comment']; 
     // 查出这个用户名
