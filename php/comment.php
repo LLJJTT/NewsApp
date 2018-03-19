@@ -23,9 +23,9 @@
     // 前端传过来的用户名、密码
     $newslist_id = $_POST['newslist_id']
     $user_id = $_POST['user_id'];
-    $comment = $_POST['comment'];
+    $comment = $_POST['comment']; 
     // 查出这个用户名
-    $sql = "INSERT INTO t_comment (newslist_id,content,user_id,) VALUES ('$newslist_id', '$comment','$user_id')";
+    $sql = "INSERT INTO t_comment (newslist_id,content,user_id,) VALUES ('$newslist_id','$comment','$user_id')";
       $rs = $mysqli->query($sql);
       if (!$rs) {
         $arr = array('status' => 2, 'msg' => '评论失败');//插入失败
