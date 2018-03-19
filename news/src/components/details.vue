@@ -25,6 +25,8 @@
         <div style="clear:both"></div>
       </li>
       <li class="other">
+        <div class="hot">热门评论</div>
+        <p :style="nocomment">暂无评论</p>
         <p v-for="item in commentData">{{item.content}}</p>
       </li>
     </div>
@@ -47,6 +49,7 @@
         collectionStatus:0,
         comment:'',
         commentData:[],
+        nocomment:'display:block'
       }
     },
     methods:{
@@ -290,6 +293,7 @@
             }
             else{
               this.commentData = res.data
+              this.nocomment = 'display:none'
             }
             console.log(this.commentData)
           })
@@ -300,15 +304,16 @@
       }
     },
     created:function(){
+
       this.detailData = this.$route.params.detailData
       this.collectionType = this.$route.params.collectionType
+      this.getCommentData()
       const username = sessionStorage.getItem('username')
       if (username==''||username==null||username==undefined) {
 
       }
       else{
         this.collectionStatusIf()
-        this.getCommentData()
       }
     },
   }
@@ -395,7 +400,14 @@
   }
   .other p{
     margin-top: 1rem;
+    margin-left: 1rem;
     color: #6f6e6e;
+  }
+  .hot{
+    color:#dc1111;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    font-size: .9rem;
   }
   .collect{
     float: right;
