@@ -25,7 +25,7 @@
     $user_id = $_POST['user_id'];
     $comment = $_POST['comment']; 
     // 查出这个用户名
-    $sql = "INSERT INTO t_comment (newslist_id,content,user_id,) VALUES ('$newslist_id','$comment','$user_id')";
+    $sql = "INSERT INTO t_comment (newslist_id,content,user_id) VALUES ('$newslist_id','$comment','$user_id')";
       $rs = $mysqli->query($sql);
       if (!$rs) {
         $arr = array('status' => 2, 'msg' => '评论失败');//插入失败
@@ -35,6 +35,7 @@
         $arr = array('status' => 1, 'msg' => '评论成功');//插入成功
         echo json_encode($arr);
       }
+      // 评论
 ?>
 
 

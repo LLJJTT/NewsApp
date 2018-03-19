@@ -38,10 +38,12 @@
       $row = $result->fetch_array();
       return $row;
     }
-    $sql = "SELECT * FROM t_comment WHERE t_fire.type = t_type.id";
+    $newslist_id = $_POST['newslist_id']
+    $sql = "SELECT * FROM t_comment WHERE newslist_id = '$newslist_id'";
     $res = $mysqli->query($sql);
     $rs = result($res);
     echo json_encode($rs);
+    // 拿评论的数据
 ?>
 
 

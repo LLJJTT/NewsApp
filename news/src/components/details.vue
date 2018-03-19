@@ -243,6 +243,7 @@
                 config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
               })
               .then((res) =>{
+                console.log(res.data)
                 if (res.data.status==1) {
                   Toast({
                     message: '评论成功',
@@ -257,7 +258,6 @@
                     duration:1000
                   })
                 }
-                console.log(res.data)
               })
               .catch((error) =>{
                 Toast({
