@@ -59,6 +59,7 @@
       },
       // 点击收藏
       goCollection(){
+        // 在session中拿手机号
         const username = sessionStorage.getItem('username')
         // 判断是否登录
         if (username==''||username==null||username==undefined) {
@@ -70,9 +71,11 @@
         }
         else{
           // 判断是否收藏
+          // 拿user_id
           const user_id = JSON.parse(sessionStorage.loginUser).data.user_id
+          // 如果是0是没收藏，1就是已经收藏
           if (this.collectionStatus==0) {
-            // 判断收藏的类别-三种类别，find,fire,recommend
+            // 判断收藏的类别-三种类别，find,fire,recommend,find可收藏、可评论
             if (this.collectionType=='fire') {
               Toast({
                 message: '不可收藏',
@@ -99,12 +102,14 @@
               })
               .then((res) =>{
                 if (res.data.status==1) {
+                  // 状态变成实心
                   this.off = 'el-icon-star-on'
                   Toast({
                     message: '收藏成功',
                     position: 'middle',
                     duration:1000
                   });
+                  // 收藏状态变成1，已经收藏
                   this.collectionStatus=1
                 }
                 else if(res.data.status==0) {
@@ -180,6 +185,7 @@
             config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
           })
           .then((res) =>{
+            // 判断收藏的状态
             // console.log(res)
             if (res.data.length==1) {
               this.off='el-icon-star-on'
@@ -201,7 +207,9 @@
       },
       // 评论
       goComment(){
+        // 获取session用户名，手机号数据
         const username = sessionStorage.getItem('username')
+        // 判断登录状态
         if (username==''||username==null||username==undefined) {
           Toast({
             message: '请先登录',
@@ -210,6 +218,7 @@
           });
         }
         else{
+          // 如果已经登录，判断新闻的大类型（fire/recommend/find三种）只有find可以评论
           if (this.collectionType=='fire') {
             Toast({
               message: '不可评论',
@@ -225,6 +234,7 @@
             });
           }
           else if (this.collectionType=='find') {
+            // 判断没输入评论内容
             if (this.comment=='') {
               Toast({
                 message: '请输入内容',
@@ -233,12 +243,15 @@
               })
             }
             else{
+              // 获取登录、或者注册时候存到session里面的user_id
               const  user_id = JSON.parse(sessionStorage.getItem('loginUser')).data.user_id
-              console.log(user_id)
+              // console.log(user_id)
+              // 向后端传递，newslist_id、user_id、comment(评论内容)
               var formdata = new FormData()
               formdata.append('newslist_id',this.detailData.newslist_id)
               formdata.append('user_id',user_id)
               formdata.append('comment',this.comment)
+              // ajax
               axios({
                 method:'POST',
                 url:this.commentURL,
@@ -246,15 +259,21 @@
                 config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
               })
               .then((res) =>{
-                console.log(res.data)
+                // console.log(res.data)
+                // 根据后台返回的状态，来判断评论的状态
                 if (res.data.status==1) {
                   Toast({
                     message: '评论成功',
                     position: 'middle',
                     duration:1000
                   })
+                  // 当评论成功的时候，输入框变成空的
+                  this.comment = ''
+                  //并且同步更新一下数据，让其实时显示评论内容
+                  this.getCommentData()
                 }
                 else if(res.data.status==2){
+                  // 这大部分错误是数据库，那面的错误
                   Toast({
                     message: '评论失败',
                     position: 'middle',
@@ -262,6 +281,7 @@
                   })
                 }
               })
+              // 其他错误，例如网络错误
               .catch((error) =>{
                 Toast({
                   message: '服务器错误',
@@ -277,10 +297,13 @@
       },
       // 获取评论数据
       getCommentData(){
+        // 判断传递过来的类型
         if (this.collectionType=='find') {
-          console.log(this.detailData.newslist_id)
+          // console.log(this.detailData.newslist_id)
+          // 获取newslist_id向后台传递
           var formdata = new FormData()
           formdata.append('newslist_id',this.detailData.newslist_id)
+          // axios ==ajax
           axios({
             method:'POST',
             url:this.getcommentData,
@@ -288,38 +311,51 @@
             config: { headers: {'Content-Type': 'application/x-www-form-urlencoded' }}
           })
           .then((res) =>{
+            // 根据后台返回来的值判断时候有评论数据
             if (res.data.status==0) {
               console.log('无评论')
             }
             else{
+              // 有评论就把评论数组，传递给commentData
               this.commentData = res.data
+              // 让暂无评论消失
               this.nocomment = 'display:none'
             }
-            console.log(this.commentData)
+            // console.log(this.commentData)
           })
+          // 接口、或者网络出现错误才执行这段代码
           .catch((error) =>{
             console.log(error)
           })
         }
       }
     },
+    // 组件创建成功的时候，属性已经绑定，但是DOM结构还未生成
     created:function(){
-
+      
+      // 页面之间传递过来的数据
       this.detailData = this.$route.params.detailData
+      // 传递过来的收藏的类型，find
       this.collectionType = this.$route.params.collectionType
-      this.getCommentData()
+      // 获取session中的手机号（用户名）
       const username = sessionStorage.getItem('username')
+      // 获取评论数据
+      this.getCommentData()
+      // 判断登录状态 
       if (username==''||username==null||username==undefined) {
 
       }
       else{
+        // 如果已经登录，判断收藏的五角星状态
         this.collectionStatusIf()
       }
     },
+
   }
 </script>
 
 <style scoped>
+/*样式*/
   #details{
     height: 34rem;
     overflow: auto;

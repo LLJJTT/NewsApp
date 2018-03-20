@@ -115,9 +115,9 @@ export default {
 						  position: 'middle',
 						  duration:2000,
 						});
-						// 跳转主页
+						// 跳转我的
 						that.$router.push({
-							path:'/index/fire'
+							path:'/index/my'
 						})
 					}
 					else if (res.data.status==0){//用户还没注册

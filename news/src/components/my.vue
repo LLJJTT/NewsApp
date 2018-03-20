@@ -77,6 +77,7 @@
     },
     created:function(){
       this.userStatus = sessionStorage.getItem('username');
+      console.log(this.userStatus)
       if (this.userStatus!=''&&this.userStatus!=null&&this.userStatus!=undefined) {
         this.head_imgSrc = 'static/img/head_img_unlogin.png'
         this.username= this.userStatus
